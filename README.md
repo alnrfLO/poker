@@ -84,6 +84,7 @@ cd poker
 2. Installe les dépendances
 
 npm install
+```
 
 
 3. Configure les variables d’environnement
