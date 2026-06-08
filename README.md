@@ -39,36 +39,49 @@ Un jeu de poker **Texas Hold'em multijoueur en temps réel**, développé avec R
 
 
 
-src/
-├── firebase.js
-├── App.jsx
-├── index.css
-├── pages/
-│ ├── MenuPage.jsx
-│ ├── RulesPage.jsx
-│ ├── SuitsPage.jsx
-│ ├── LobbyPage.jsx
-│ └── GamePage.jsx
-├── components/
-│ ├── Card.jsx
-│ ├── Hand.jsx
-│ ├── Board.jsx
-│ ├── Player.jsx
-│ ├── PlayerList.jsx
-│ ├── ActionBar.jsx
-│ ├── RaiseSlider.jsx
-│ ├── Pot.jsx
-│ ├── WinnerModal.jsx
-│ └── Table.jsx
-├── hooks/
-│ ├── useRoom.js
-│ ├── useGameState.js
-│ └── usePokerLogic.js
-└── utils/
-├── constants.js
-├── deck.js
-└── handEvaluator.js
+```
+poker-game
+├─ README.md
+├─ eslint.config.js
+├─ index.html
+├─ package-lock.json
+├─ package.json
+├─ postcss.config.js
+├─ public
+│  ├─ favicon.svg
+│  └─ icons.svg
+├─ src
+│  ├─ App.css
+│  ├─ App.jsx
+│  ├─ assets
+│  │  └─ cards
+│  ├─ components
+│  │  ├─ ActionBar.jsx
+│  │  ├─ Board.jsx
+│  │  ├─ Card.jsx
+│  │  ├─ ChipDisplay.jsx
+│  │  ├─ Game.jsx
+│  │  ├─ Hand.jsx
+│  │  ├─ Player.jsx
+│  │  ├─ PlayerList.jsx
+│  │  ├─ Pot.jsx
+│  │  ├─ RaiseSlider.jsx
+│  │  ├─ Table.jsx
+│  │  └─ WinnerModal.jsx
+│  ├─ firebase.js
+│  ├─ hooks
+│  │  ├─ useGameState.js
+│  │  └─ usePokerLogic.js
+│  ├─ index.css
+│  ├─ main.jsx
+│  └─ utils
+│     ├─ constants.js
+│     ├─ deck.js
+│     └─ handEvaluator.js
+├─ tailwind.config.js
+└─ vite.config.js
 
+```
 
 ---
 
@@ -84,7 +97,7 @@ cd poker
 2. Installe les dépendances
 
 npm install
-```
+
 
 
 3. Configure les variables d’environnement
@@ -109,6 +122,7 @@ npm run dev
 
 Ouvre http://localhost:5173 dans ton navigateur.
 
+```
 🃏 Règles du jeu
 
 Le Texas Hold’em est la variante de poker la plus jouée au monde.
