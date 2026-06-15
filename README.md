@@ -165,3 +165,113 @@ alnrfLO
 📄 Licence
 
 Tous droits réservés © 2026 alnrfLO
+
+```
+poker
+├─ eslint.config.js
+├─ index.html
+├─ package-lock.json
+├─ package.json
+├─ postcss.config.js
+├─ public
+│  ├─ favicon.svg
+│  └─ icons.svg
+├─ README.md
+├─ src
+│  ├─ App.css
+│  ├─ App.jsx
+│  ├─ assets
+│  │  └─ cards
+│  │     ├─ 10_of_clubs.png
+│  │     ├─ 10_of_diamonds.png
+│  │     ├─ 10_of_hearts.png
+│  │     ├─ 10_of_spades.png
+│  │     ├─ 2_of_clubs.png
+│  │     ├─ 2_of_diamonds.png
+│  │     ├─ 2_of_hearts.png
+│  │     ├─ 2_of_spades.png
+│  │     ├─ 3_of_clubs.png
+│  │     ├─ 3_of_diamonds.png
+│  │     ├─ 3_of_hearts.png
+│  │     ├─ 3_of_spades.png
+│  │     ├─ 4_of_clubs.png
+│  │     ├─ 4_of_diamonds.png
+│  │     ├─ 4_of_hearts.png
+│  │     ├─ 4_of_spades.png
+│  │     ├─ 5_of_clubs.png
+│  │     ├─ 5_of_diamonds.png
+│  │     ├─ 5_of_hearts.png
+│  │     ├─ 5_of_spades.png
+│  │     ├─ 6_of_clubs.png
+│  │     ├─ 6_of_diamonds.png
+│  │     ├─ 6_of_hearts.png
+│  │     ├─ 6_of_spades.png
+│  │     ├─ 7_of_clubs.png
+│  │     ├─ 7_of_diamonds.png
+│  │     ├─ 7_of_hearts.png
+│  │     ├─ 7_of_spades.png
+│  │     ├─ 8_of_clubs.png
+│  │     ├─ 8_of_diamonds.png
+│  │     ├─ 8_of_hearts.png
+│  │     ├─ 8_of_spades.png
+│  │     ├─ 9_of_clubs.png
+│  │     ├─ 9_of_diamonds.png
+│  │     ├─ 9_of_hearts.png
+│  │     ├─ 9_of_spades.png
+│  │     ├─ ace_of_clubs.png
+│  │     ├─ ace_of_diamonds.png
+│  │     ├─ ace_of_hearts.png
+│  │     ├─ ace_of_spades.png
+│  │     ├─ back.png
+│  │     ├─ back@2x.png
+│  │     ├─ black_joker.png
+│  │     ├─ jack_of_clubs.png
+│  │     ├─ jack_of_diamonds.png
+│  │     ├─ jack_of_hearts.png
+│  │     ├─ jack_of_spades.png
+│  │     ├─ king_of_clubs.png
+│  │     ├─ king_of_diamonds.png
+│  │     ├─ king_of_hearts.png
+│  │     ├─ king_of_spades.png
+│  │     ├─ queen_of_clubs.png
+│  │     ├─ queen_of_diamonds.png
+│  │     ├─ queen_of_hearts.png
+│  │     ├─ queen_of_spades.png
+│  │     └─ red_joker.png
+│  ├─ components
+│  │  ├─ ActionBar.jsx
+│  │  ├─ Board.jsx
+│  │  ├─ Card.jsx
+│  │  ├─ Chat.jsx
+│  │  ├─ ChipDisplay.jsx
+│  │  ├─ ChipStack.jsx
+│  │  ├─ Game.jsx
+│  │  ├─ Hand.jsx
+│  │  ├─ Player.jsx
+│  │  ├─ PlayerList.jsx
+│  │  ├─ Pot.jsx
+│  │  ├─ RaiseSlider.jsx
+│  │  ├─ Table.jsx
+│  │  └─ WinnerModal.jsx
+│  ├─ firebase.js
+│  ├─ hooks
+│  │  ├─ useChat.js
+│  │  ├─ useGameState.js
+│  │  ├─ usePokerLogic.js
+│  │  └─ useRoom.js
+│  ├─ index.css
+│  ├─ main.jsx
+│  ├─ pages
+│  │  ├─ GamePage.jsx
+│  │  ├─ LobbyPage.jsx
+│  │  ├─ MenuPage.jsx
+│  │  ├─ RulesPage.jsx
+│  │  └─ SuitsPage.jsx
+│  └─ utils
+│     ├─ constants.js
+│     ├─ deck.js
+│     └─ handEvaluator.js
+├─ tailwind.config.js
+└─ vite.config.js
+
+```
