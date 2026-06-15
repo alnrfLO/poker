@@ -1,12 +1,7 @@
 import React from "react";
 import Player from "./Player";
 
-export default function PlayerList({
-  players,
-  currentPlayerIndex,
-  dealerIndex,
-  showAllCards = false,
-}) {
+export default function PlayerList({ players, currentPlayerIndex, dealerIndex, showAllCards = false }) {
   return (
     <div className="grid grid-cols-2 gap-4 w-full max-w-2xl">
       {players.map((player, index) => (
