@@ -1,156 +1,87 @@
 import { useCallback } from "react";
-import { ACTIONS, PLAYER_STATUS, CONFIG } from "../utils/constants";
+import { ACTIONS, PLAYER_STATUS } from "../utils/constants";
 import { findWinner } from "../utils/handEvaluator";
 
-export function usePokerLogic({
-    players, setPlayers,
-    deck,
-    communityCards,
-    pot, setPot,
-    currentPlayerIndex, setCurrentPlayerIndex,
-    currentBet, setCurrentBet,
-    dealerIndex, setDealerIndex,
-    setWinner, setWinnerHand,
-    setMessage, setLastAction,
-    phase,
-    nextPhase,
-    startNewRound,
-}) {
-    // Vérifie si tout le monde a misé pareil → passe à la phase suivante
-    function checkRoundEnd(updatedPlayers, updatedPot, updatedBet) {
-        const activePlayers = updatedPlayers.filter(
-            (p) => p.status === PLAYER_STATUS.ACTIVE
-        );
-        
-        const allCalled = activePlayers.every((p) => p.bet === updatedBet);
-        
-        if (allCalled) {
-            const result = nextPhase(deck, updatedPlayers, updatedPot);
-            if (result?.shouldShowdown) {
-                triggerShowdown(updatedPlayers, updatedPot);
-            }
-            return true;
-        }
-        return false;
+export function usePokerLogic({ roomId, gameState, updateState, nextPhase, playerId }) {
+  function getNextActiveIndex(players, fromIndex) {
+    let next = (fromIndex + 1) % players.length;
+    let tries = 0;
+    while (players[next]?.status !== PLAYER_STATUS.ACTIVE && tries < players.length) {
+      next = (next + 1) % players.length;
+      tries++;
     }
-    
-    function getNextActiveIndex(currentPlayers, fromIndex) {
-        let next = (fromIndex + 1) % currentPlayers.length;
-        let tries = 0;
-        while (
-            currentPlayers[next].status !== PLAYER_STATUS.ACTIVE &&
-            tries < currentPlayers.length
-        ) {
-            next = (next + 1) % currentPlayers.length;
-            tries++;
-        }
-        return next;
+    return next;
+  }
+
+  async function triggerShowdown(players, pot, communityCards) {
+    const { winner, handResult } = findWinner(players, communityCards);
+    if (!winner) return;
+
+    const updatedPlayers = players.map((p) =>
+      p.id === winner.id ? { ...p, chips: p.chips + pot } : p
+    );
+
+    await updateState({
+      phase: "showdown",
+      players: updatedPlayers,
+      winner: { ...winner, handRank: handResult.rank },
+      winnerHandResult: handResult,
+    });
+  }
+
+  const handleAction = useCallback(async (action, raiseAmount = 0) => {
+    if (!gameState) return;
+
+    let { players, pot, currentBet, currentPlayerIndex, communityCards, phase } = gameState;
+    players = [...players.map((p) => ({ ...p }))];
+    const player = players[currentPlayerIndex];
+
+    if (action === ACTIONS.FOLD) {
+      players[currentPlayerIndex].status = PLAYER_STATUS.FOLDED;
+
+      const active = players.filter((p) => p.status === PLAYER_STATUS.ACTIVE);
+      if (active.length === 1) {
+        await updateState({ players });
+        await triggerShowdown(players, pot, communityCards || []);
+        return;
+      }
+    } else if (action === ACTIONS.CHECK) {
+      // rien
+    } else if (action === ACTIONS.CALL) {
+      const toCall = Math.min(currentBet - player.bet, player.chips);
+      players[currentPlayerIndex].chips -= toCall;
+      players[currentPlayerIndex].bet += toCall;
+      pot += toCall;
+    } else if (action === ACTIONS.RAISE) {
+      const toCall = currentBet - player.bet;
+      const total = Math.min(toCall + raiseAmount, player.chips);
+      players[currentPlayerIndex].chips -= total;
+      players[currentPlayerIndex].bet += total;
+      currentBet = players[currentPlayerIndex].bet;
+      pot += total;
     }
-    
-    function triggerShowdown(finalPlayers, finalPot) {
-        const { winner, handResult } = findWinner(finalPlayers, communityCards);
-        if (winner) {
-            const updatedPlayers = finalPlayers.map((p) =>
-                p.id === winner.id ? { ...p, chips: p.chips + finalPot } : p
-        );
-        setPlayers(updatedPlayers);
-        setWinner(winner);
-        setWinnerHand(handResult);
-        setMessage(`🏆 ${winner.name} gagne ${finalPot} jetons !`);
-        setDealerIndex((prev) => (prev + 1) % finalPlayers.length);
+
+    // Vérifie si tout le monde a misé pareil
+    const activePlayers = players.filter((p) => p.status === PLAYER_STATUS.ACTIVE);
+    const allCalled = activePlayers.every((p) => p.bet === currentBet);
+
+    if (allCalled) {
+      await updateState({ players, pot, currentBet });
+      const isShowdown = await nextPhase({ ...gameState, players, pot, currentBet });
+      if (isShowdown) {
+        await triggerShowdown(players, pot, communityCards || []);
+      }
+      return;
     }
-}
 
-const handleAction = useCallback(
-    (action, raiseAmount = 0) => {
-        let updatedPlayers = [...players];
-        let updatedPot = pot;
-        let updatedBet = currentBet;
-        const player = updatedPlayers[currentPlayerIndex];
-        
-        if (action === ACTIONS.FOLD) {
-            updatedPlayers[currentPlayerIndex] = {
-                ...player,
-                status: PLAYER_STATUS.FOLDED,
-            };
-            setLastAction({ playerId: player.id, action: "Fold" });
-            
-            const stillActive = updatedPlayers.filter(
-                (p) => p.status === PLAYER_STATUS.ACTIVE
-            );
-            if (stillActive.length === 1) {
-                const finalPot = updatedPot;
-                triggerShowdown(updatedPlayers, finalPot);
-                setPlayers(updatedPlayers);
-                return;
-            }
-        } else if (action === ACTIONS.CHECK) {
-            setLastAction({ playerId: player.id, action: "Check" });
-        } else if (action === ACTIONS.CALL) {
-            const toCall = updatedBet - player.bet;
-            const actual = Math.min(toCall, player.chips);
-            updatedPlayers[currentPlayerIndex] = {
-                ...player,
-                chips: player.chips - actual,
-                bet: player.bet + actual,
-            };
-            updatedPot += actual;
-            setLastAction({ playerId: player.id, action: `Call ${actual}` });
-        } else if (action === ACTIONS.RAISE) {
-            const toCall = updatedBet - player.bet;
-            const total = toCall + raiseAmount;
-            const actual = Math.min(total, player.chips);
-            updatedPlayers[currentPlayerIndex] = {
-                ...player,
-                chips: player.chips - actual,
-                bet: player.bet + actual,
-            };
-            updatedBet = player.bet + actual;
-            updatedPot += actual;
-            setCurrentBet(updatedBet);
-            setLastAction({ playerId: player.id, action: `Raise ${actual}` });
-        }
-        
-        setPlayers(updatedPlayers);
-        setPot(updatedPot);
-        
-        const ended = checkRoundEnd(updatedPlayers, updatedPot, updatedBet);
-        if (!ended) {
-            const next = getNextActiveIndex(updatedPlayers, currentPlayerIndex);
-            setCurrentPlayerIndex(next);
-        }
-    },
-    [players, pot, currentBet, currentPlayerIndex, deck, communityCards, phase]
-);
+    const next = getNextActiveIndex(players, currentPlayerIndex);
+    await updateState({
+      players,
+      pot,
+      currentBet,
+      currentPlayerIndex: next,
+    });
+  }, [gameState]);
 
-// IA simple
-const runAI = useCallback(
-    (playerIndex) => {
-        const player = players[playerIndex];
-        if (!player || player.isHuman || player.status !== PLAYER_STATUS.ACTIVE) return;
-        
-        setTimeout(() => {
-            const toCall = currentBet - player.bet;
-            const rand = Math.random();
-            
-            if (toCall === 0) {
-                // Check ou raise
-                if (rand < 0.7) {
-                    handleAction(ACTIONS.CHECK);
-                } else {
-                    handleAction(ACTIONS.RAISE, CONFIG.BIG_BLIND * 2);
-                }
-            } else if (rand < 0.3) {
-                handleAction(ACTIONS.FOLD);
-            } else if (rand < 0.7) {
-                handleAction(ACTIONS.CALL);
-            } else {
-                handleAction(ACTIONS.RAISE, CONFIG.BIG_BLIND * 2);
-            }
-        }, CONFIG.AI_THINK_DELAY);
-    },
-    [players, currentBet, handleAction]
-);
-
-return { handleAction, runAI };
+  return { handleAction };
 }

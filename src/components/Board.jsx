@@ -10,9 +10,9 @@ export default function Board({ cards = [] }) {
         <div
           key={i}
           className={`transition-all duration-500 ${
-            card ? "scale-100 opacity-100" : "scale-95 opacity-30"
+            card ? "scale-100 opacity-100 translate-y-0" : "scale-95 opacity-25 translate-y-1"
           }`}
-        >x
+        >
           <Card card={card} hidden={!card} />
         </div>
       ))}
