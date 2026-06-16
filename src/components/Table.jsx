@@ -69,15 +69,15 @@ export default function Table({
         </div>
       )}
 
-      {/* Joueurs */}
+
       <PlayerList
         players={players}
         currentPlayerIndex={currentPlayerIndex}
         dealerIndex={dealerIndex}
-        showAllCards={isShowdown}
+        showAllCards={isShowdown} 
+        localPlayerId={playerId}
       />
 
-      {/* Board + Pot */}
       {!isWaiting && (
         <div className="flex flex-col items-center gap-4 w-full">
           <div className="w-full max-w-lg rounded-3xl p-6 flex flex-col items-center gap-4 border border-white/5"
