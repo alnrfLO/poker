@@ -3,7 +3,7 @@ import Hand from "./Hand";
 import ChipStack from "./ChipStack";
 import { PLAYER_STATUS } from "../utils/constants";
 
-export default function Player({ player, isCurrentPlayer, isDealer, showCards = false }) {
+export default function Player({ player, isCurrentPlayer, isDealer, showCards = false , localPlayerId }) {
   const isFolded = player.status === PLAYER_STATUS.FOLDED;
   const isAllIn = player.status === PLAYER_STATUS.ALL_IN;
 
@@ -20,7 +20,7 @@ export default function Player({ player, isCurrentPlayer, isDealer, showCards = 
           <span className="bg-white text-black text-xs font-black rounded-full w-5 h-5 flex items-center justify-center">D</span>
         )}
         <span className="text-white font-bold text-sm">{player.name}</span>
-        {player.isHuman && (
+        {player.id === localPlayerId && (
           <span className="text-xs bg-blue-600 rounded-full px-2 py-0.5 text-white font-bold">Toi</span>
         )}
         {isFolded && (
@@ -31,10 +31,9 @@ export default function Player({ player, isCurrentPlayer, isDealer, showCards = 
         )}
       </div>
 
-      {/* Cartes */}
-      <Hand cards={player.hand} hidden={!showCards && !player.isHuman} small />
 
-      {/* Jetons du joueur */}
+      <Hand cards={player.hand} hidden={!showCards} small />
+
       <div className="flex items-center gap-1 bg-black/40 border border-yellow-500/30 rounded-full px-3 py-1">
         <span className="text-yellow-400 text-sm">🪙</span>
         <span className="text-yellow-300 font-bold text-sm">{player.chips}</span>
