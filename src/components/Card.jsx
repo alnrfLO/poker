@@ -12,7 +12,7 @@ function getCardImage(card) {
 
   const rank = rankMap[card.rank];
   const suit = suitMap[card.suit];
-  return `/src/assets/cards/${rank}_of_${suit}.png`;
+  return `/cards/${rank}_of_${suit}.png`;
 }
 
 export default function Card({ card, hidden = false, small = false }) {
