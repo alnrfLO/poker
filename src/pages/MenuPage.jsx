@@ -79,7 +79,7 @@ export default function MenuPage({ onPlay, onRules, onSuits }) {
     ].map((c, i) => (
       <img
       key={i}
-      src={`/src/assets/cards/${c.rank}_of_${c.suit}.png`}
+      src={`/assets/cards/${c.rank}_of_${c.suit}.png`}
       alt={`${c.rank} of ${c.suit}`}
       className="w-12 h-16 rounded-xl shadow-2xl object-contain bg-white"
       style={{
