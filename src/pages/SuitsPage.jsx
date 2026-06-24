@@ -115,7 +115,7 @@ export default function SuitsPage({ onBack }) {
       {RANKS.map((rank, j) => (
         <img
         key={j}
-        src={`/src/assets/cards/${rank}_of_${suit.suit}.png`}
+        src={`/cards/${rank}_of_${suit.suit}.png`}
         alt={`${rank} of ${suit.suit}`}
         className="rounded-md bg-white object-contain"
         style={{
