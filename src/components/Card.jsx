@@ -21,7 +21,7 @@ export default function Card({ card, hidden = false, small = false }) {
 if (hidden || !card) {
   return (
     <img
-      src="/src/assets/cards/back.png"
+      src="/assets/cards/back.png"
       alt="carte cachée"
       className={`${w} rounded-xl shadow-2xl object-contain bg-white`}
       style={{ boxShadow: "0 4px 15px rgba(0,0,0,0.4)", padding: "2px" }}
