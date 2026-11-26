@@ -14,7 +14,6 @@ export default function Player({ player, isCurrentPlayer, isDealer, showCards = 
     `}
       style={{ background: isCurrentPlayer ? "rgba(255,255,255,0.1)" : "rgba(255,255,255,0.04)" }}
     >
-      {/* Badges */}
       <div className="flex items-center gap-1.5 flex-wrap justify-center">
         {isDealer && (
           <span className="bg-white text-black text-xs font-black rounded-full w-5 h-5 flex items-center justify-center">D</span>
@@ -31,7 +30,6 @@ export default function Player({ player, isCurrentPlayer, isDealer, showCards = 
         )}
       </div>
 
-
       <Hand cards={player.hand} hidden={!showCards} small />
 
       <div className="flex items-center gap-1 bg-black/40 border border-yellow-500/30 rounded-full px-3 py-1">
@@ -39,7 +37,6 @@ export default function Player({ player, isCurrentPlayer, isDealer, showCards = 
         <span className="text-yellow-300 font-bold text-sm">{player.chips}</span>
       </div>
 
-      {/* Mise en jetons */}
       {player.bet > 0 && (
         <ChipStack amount={player.bet} small />
       )}

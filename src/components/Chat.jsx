@@ -10,7 +10,6 @@ export default function Chat({ roomId, playerName }) {
   const [unread, setUnread] = useState(0);
   const prevLengthRef = React.useRef(0);
 
-  // Compte les non lus quand le chat est fermé
   React.useEffect(() => {
     if (!open && messages.length > prevLengthRef.current) {
       setUnread((u) => u + (messages.length - prevLengthRef.current));
@@ -44,7 +43,6 @@ export default function Chat({ roomId, playerName }) {
 
   return (
     <>
-      {/* Bouton flottant */}
       {!open && (
         <button
           onClick={handleOpen}
@@ -60,7 +58,6 @@ export default function Chat({ roomId, playerName }) {
         </button>
       )}
 
-      {/* Panel chat */}
       {open && (
         <div
           className="fixed bottom-6 right-6 z-50 w-80 rounded-2xl border border-white/10 shadow-2xl flex flex-col overflow-hidden"
@@ -69,7 +66,6 @@ export default function Chat({ roomId, playerName }) {
             height: "420px",
           }}
         >
-          {/* Header */}
           <div
             className="flex items-center justify-between px-4 py-3 border-b border-white/10"
             style={{ background: "rgba(0,0,0,0.3)" }}
@@ -87,7 +83,6 @@ export default function Chat({ roomId, playerName }) {
             </button>
           </div>
 
-          {/* Messages */}
           <div className="flex-1 overflow-y-auto px-3 py-2 flex flex-col gap-2">
             {messages.length === 0 && (
               <div className="flex-1 flex items-center justify-center">
@@ -103,11 +98,9 @@ export default function Chat({ roomId, playerName }) {
                   key={i}
                   className={`flex flex-col ${isMe ? "items-end" : "items-start"}`}
                 >
-                  {/* Nom */}
                   {!isMe && (
                     <span className="text-white/30 text-xs mb-0.5 px-1">{msg.playerName}</span>
                   )}
-                  {/* Bulle */}
                   <div
                     className={`max-w-[85%] px-3 py-2 rounded-2xl text-sm ${
                       isMe
@@ -122,7 +115,6 @@ export default function Chat({ roomId, playerName }) {
                   >
                     {msg.text}
                   </div>
-                  {/* Heure */}
                   <span className="text-white/20 text-xs mt-0.5 px-1">
                     {formatTime(msg.timestamp)}
                   </span>
@@ -132,7 +124,6 @@ export default function Chat({ roomId, playerName }) {
             <div ref={bottomRef} />
           </div>
 
-          {/* Réactions rapides */}
           <div
             className="flex gap-2 px-3 py-2 border-t border-white/5"
             style={{ background: "rgba(0,0,0,0.2)" }}
@@ -148,7 +139,6 @@ export default function Chat({ roomId, playerName }) {
             ))}
           </div>
 
-          {/* Input */}
           <div
             className="flex gap-2 px-3 py-3 border-t border-white/10"
             style={{ background: "rgba(0,0,0,0.3)" }}

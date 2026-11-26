@@ -24,7 +24,6 @@ export default function LobbyPage({ onJoin, onBack }) {
     className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden p-6"
     style={{ background: "radial-gradient(ellipse at top, #1a0a2e 0%, #0d1a0d 40%, #0a0a0a 100%)" }}
     >
-    {/* Cercles décoratifs */}
     <div className="absolute inset-0 pointer-events-none overflow-hidden">
     <div className="absolute -top-32 -left-32 w-96 h-96 rounded-full opacity-10"
     style={{ background: "radial-gradient(circle, #7c3aed, transparent)" }} />
@@ -38,7 +37,6 @@ export default function LobbyPage({ onJoin, onBack }) {
     
     <div className="flex flex-col items-center gap-6 w-full max-w-xs z-10">
     
-    {/* Logo */}
     <div className="flex flex-col items-center gap-2">
     <div className="flex gap-4 text-3xl">
     <span style={{ color: "#7c3aed", textShadow: "0 0 20px #7c3aed80" }}>♠</span>
@@ -59,7 +57,6 @@ export default function LobbyPage({ onJoin, onBack }) {
     </h1>
     </div>
     
-    {/* Champ nom - toujours visible */}
     {!mode && (
       <div className="w-full flex flex-col gap-2">
       <label className="text-white/40 text-xs uppercase tracking-widest">Ton pseudo</label>
@@ -80,7 +77,6 @@ export default function LobbyPage({ onJoin, onBack }) {
       </div>
     )}
     
-    {/* Choix mode */}
     {!mode && (
       <div className="flex flex-col gap-3 w-full">
       <button
@@ -108,7 +104,6 @@ export default function LobbyPage({ onJoin, onBack }) {
       </div>
     )}
     
-    {/* Créer */}
     {mode === "create" && (
       <div className="flex flex-col gap-4 w-full">
       <div className="rounded-2xl p-4 border border-yellow-500/20 text-center"
@@ -139,7 +134,6 @@ export default function LobbyPage({ onJoin, onBack }) {
       </div>
     )}
     
-    {/* Rejoindre */}
     {mode === "join" && (
       <div className="flex flex-col gap-4 w-full">
       <div className="rounded-2xl p-4 border border-yellow-500/20 text-center"

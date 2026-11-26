@@ -47,7 +47,6 @@ const handleAction = useCallback(async (action, raiseAmount = 0) => {
     }
     
   } else if (action === ACTIONS.CHECK) {
-    // rien
     
   } else if (action === ACTIONS.CALL) {
     const toCall = Math.min(currentBet - player.bet, player.chips);
@@ -62,7 +61,6 @@ const handleAction = useCallback(async (action, raiseAmount = 0) => {
     players[currentPlayerIndex].bet += total;
     currentBet = players[currentPlayerIndex].bet;
     pot += total;
-    // Reset car relance — tout le monde doit rejouer sauf celui qui a relancé
     newActedIds = [player.id];
   }
   

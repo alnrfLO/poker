@@ -14,7 +14,6 @@ export default function MenuPage({ onPlay, onRules, onSuits }) {
       background: "radial-gradient(ellipse at top, #1a0a2e 0%, #0d1a0d 40%, #0a0a0a 100%)",
     }}
     >
-    {/* Cercles décoratifs */}
     <div className="absolute inset-0 pointer-events-none overflow-hidden">
     <div className="absolute -top-32 -left-32 w-96 h-96 rounded-full opacity-10"
     style={{ background: "radial-gradient(circle, #7c3aed, transparent)" }} />
@@ -26,18 +25,15 @@ export default function MenuPage({ onPlay, onRules, onSuits }) {
     style={{ background: "linear-gradient(90deg, transparent, #eab308, transparent)" }} />
     </div>
     
-    {/* Header */}
     <div className="w-full flex justify-end px-6 pt-5 z-10">
     <span className="text-white/10 text-xs tracking-widest uppercase">v1.0.0</span>
     </div>
     
-    {/* Logo central */}
     <div
     className={`flex flex-col items-center gap-6 z-10 transition-all duration-700 ${
       visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
     }`}
     >
-    {/* Symboles familles */}
     <div className="flex gap-5 text-4xl">
     <span style={{ color: "#7c3aed", textShadow: "0 0 20px #7c3aed80" }}>♠</span>
     <span style={{ color: "#dc2626", textShadow: "0 0 20px #dc262680" }}>♥</span>
@@ -45,7 +41,6 @@ export default function MenuPage({ onPlay, onRules, onSuits }) {
     <span style={{ color: "#7c3aed", textShadow: "0 0 20px #7c3aed80" }}>♣</span>
     </div>
     
-    {/* Titre */}
     <div className="text-center">
     <h1
     className="font-black tracking-[0.2em] uppercase"
@@ -68,7 +63,6 @@ export default function MenuPage({ onPlay, onRules, onSuits }) {
     </div>
     </div>
     
-    {/* Cartes PNG en éventail */}
     <div className="flex gap-2 mt-2">
     {[
       { rank: "ace", suit: "spades" },
@@ -92,7 +86,6 @@ export default function MenuPage({ onPlay, onRules, onSuits }) {
     </div>
     </div>
     
-    {/* Boutons */}
     <div
     className={`flex flex-col gap-3 w-full max-w-xs px-6 pb-10 z-10 transition-all duration-700 delay-200 ${
       visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"

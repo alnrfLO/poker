@@ -27,7 +27,6 @@ function isStraight(values) {
     for (let i = 0; i <= unique.length - 5; i++) {
         if (unique[i] - unique[i + 4] === 4) return true;
     }
-    // As-2-3-4-5
     if (
         unique.includes(14) &&
         unique.includes(2) &&
@@ -68,43 +67,33 @@ export function evaluateHand(holeCards, communityCards) {
     const threes = Object.entries(groups).filter(([, c]) => c === 3).map(([v]) => Number(v));
     const fours = Object.entries(groups).filter(([, c]) => c === 4).map(([v]) => Number(v));
     
-    // Royal flush
     if (flush && straight && straightHigh === 14) {
         return { rank: HAND_RANKS.ROYAL_FLUSH, score: 9000 };
     }
-    // Straight flush
     if (flush && straight) {
         return { rank: HAND_RANKS.STRAIGHT_FLUSH, score: 8000 + straightHigh };
     }
-    // Four of a kind
     if (counts[0] === 4) {
         return { rank: HAND_RANKS.FOUR_OF_A_KIND, score: 7000 + fours[0] * 10 };
     }
-    // Full house
     if (counts[0] === 3 && counts[1] === 2) {
         return { rank: HAND_RANKS.FULL_HOUSE, score: 6000 + threes[0] * 10 + pairs[0] };
     }
-    // Flush
     if (flush) {
         return { rank: HAND_RANKS.FLUSH, score: 5000 + values[0] };
     }
-    // Straight
     if (straight) {
         return { rank: HAND_RANKS.STRAIGHT, score: 4000 + straightHigh };
     }
-    // Three of a kind
     if (counts[0] === 3) {
         return { rank: HAND_RANKS.THREE_OF_A_KIND, score: 3000 + threes[0] * 10 };
     }
-    // Two pair
     if (counts[0] === 2 && counts[1] === 2) {
         return { rank: HAND_RANKS.TWO_PAIR, score: 2000 + pairs[0] * 10 + pairs[1] };
     }
-    // One pair
     if (counts[0] === 2) {
         return { rank: HAND_RANKS.ONE_PAIR, score: 1000 + pairs[0] * 10 };
     }
-    // High card
     return { rank: HAND_RANKS.HIGH_CARD, score: values[0] };
 }
 

@@ -38,7 +38,6 @@ export default function RulesPage({ onBack }) {
     className="min-h-screen flex flex-col relative overflow-hidden"
     style={{ background: "radial-gradient(ellipse at top, #1a0a2e 0%, #0d1a0d 40%, #0a0a0a 100%)" }}
     >
-    {/* Cercles décoratifs */}
     <div className="absolute inset-0 pointer-events-none overflow-hidden">
     <div className="absolute -top-32 -left-32 w-96 h-96 rounded-full opacity-10"
     style={{ background: "radial-gradient(circle, #7c3aed, transparent)" }} />
@@ -48,7 +47,6 @@ export default function RulesPage({ onBack }) {
     style={{ background: "radial-gradient(ellipse, #14532d, transparent)" }} />
     </div>
     
-    {/* Header */}
     <div className="flex items-center gap-4 px-6 py-5 z-10 border-b border-white/5"
     style={{ background: "rgba(0,0,0,0.3)" }}>
     <button
@@ -72,7 +70,6 @@ export default function RulesPage({ onBack }) {
     </div>
     </div>
     
-    {/* Intro */}
     <div className="mx-6 mt-5 rounded-2xl p-4 border border-yellow-500/20 flex gap-3 items-start z-10"
     style={{ background: "linear-gradient(135deg, rgba(234,179,8,0.08), rgba(234,179,8,0.03))" }}>
     <span className="text-yellow-400 text-xl">♠</span>
@@ -83,7 +80,6 @@ export default function RulesPage({ onBack }) {
     </p>
     </div>
     
-    {/* Tabs */}
     <div className="flex gap-2 px-6 mt-5 z-10">
     {TABS.map((tab, i) => (
       <button
@@ -103,7 +99,6 @@ export default function RulesPage({ onBack }) {
     ))}
     </div>
     
-    {/* Content */}
     <div className="flex-1 px-6 py-5 flex flex-col gap-3 overflow-y-auto z-10">
     
     {activeTab === 0 && PHASES.map((phase, i) => (

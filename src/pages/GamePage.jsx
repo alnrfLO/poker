@@ -35,7 +35,6 @@ export default function GamePage({ roomId, playerId, onLeave }) {
         onRaiseChange={setRaiseAmount}
       />
 
-      {/* Bouton quitter */}
       <button
         onClick={onLeave}
         className="fixed top-4 right-4 z-40 px-3 py-2 rounded-xl text-white/50 text-xs border border-white/10 hover:text-white hover:border-white/30 transition-all"
@@ -44,7 +43,6 @@ export default function GamePage({ roomId, playerId, onLeave }) {
         ✗ Quitter
       </button>
 
-      {/* Lobby en attente */}
       {isWaiting && (
         <div className="fixed inset-0 z-30 flex items-center justify-center backdrop-blur-sm"
           style={{ background: "rgba(0,0,0,0.8)" }}>
@@ -53,7 +51,6 @@ export default function GamePage({ roomId, playerId, onLeave }) {
 
             <h2 className="text-white font-black text-2xl">Salle {roomId}</h2>
 
-            {/* ID à partager */}
             <div className="flex flex-col items-center gap-2 w-full">
               <p className="text-white/50 text-sm">Partage ce code :</p>
               <div className="flex items-center gap-2 bg-black/50 rounded-xl px-4 py-3 border border-yellow-500/30 w-full justify-center">
@@ -61,7 +58,6 @@ export default function GamePage({ roomId, playerId, onLeave }) {
               </div>
             </div>
 
-            {/* Joueurs connectés */}
             <div className="flex flex-col gap-2 w-full">
               <p className="text-white/50 text-xs uppercase tracking-widest">Joueurs ({players.length}/4)</p>
               {players.map((p) => (
@@ -73,7 +69,6 @@ export default function GamePage({ roomId, playerId, onLeave }) {
               ))}
             </div>
 
-            {/* Bouton start (hôte seulement) */}
             {isHost && players.length >= 2 && (
               <button
                 onClick={handleStartGame}

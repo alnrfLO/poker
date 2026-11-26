@@ -49,7 +49,6 @@ export default function Table({
     <div className="relative min-h-screen flex flex-col items-center justify-between p-4 gap-4"
       style={{ background: "linear-gradient(135deg, #030712 0%, #052e16 50%, #030712 100%)" }}>
 
-      {/* Header */}
       <div className="w-full max-w-2xl flex justify-between items-center pt-2">
         <h1 className="text-white font-black text-xl tracking-widest">♠ POKER</h1>
         <div className="text-white/60 text-sm px-3 py-1 rounded-full border border-white/10"
@@ -58,7 +57,6 @@ export default function Table({
         </div>
       </div>
 
-      {/* Tour actuel */}
       {!isWaiting && !winner && (
         <div className={`text-sm px-4 py-2 rounded-full border ${
           isMyTurn
@@ -68,7 +66,6 @@ export default function Table({
           {isMyTurn ? "🎯 C'est ton tour !" : `⏳ Tour de ${players[currentPlayerIndex]?.name}...`}
         </div>
       )}
-
 
       <PlayerList
         players={players}
@@ -88,7 +85,6 @@ export default function Table({
         </div>
       )}
 
-      {/* Actions */}
       {!isWaiting && !winner && humanPlayer && (
         <div className="flex flex-col items-center gap-3 w-full max-w-sm pb-4">
           <ActionBar
@@ -105,7 +101,6 @@ export default function Table({
         </div>
       )}
 
-      {/* Modal gagnant */}
       <WinnerModal
         winner={winner}
         handResult={winnerHandResult}

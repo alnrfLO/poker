@@ -17,7 +17,6 @@ export default function Game() {
     startNewRound,
   } = gameState;
 
-  // Déclenche l'IA quand c'est son tour
   useEffect(() => {
     if (
       phase === PHASES.WAITING ||

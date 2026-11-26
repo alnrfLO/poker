@@ -18,7 +18,6 @@ function ClickableChip({ chip, onClick, disabled }) {
       disabled={disabled}
       className="flex flex-col items-center gap-1 group disabled:opacity-30 disabled:cursor-not-allowed"
     >
-      {/* Jeton */}
       <div
         className="rounded-full flex items-center justify-center font-black transition-all duration-150 group-hover:scale-110 group-active:scale-95 shadow-lg"
         style={{
@@ -69,7 +68,6 @@ export default function ActionBar({ player, currentBet, onAction, disabled = fal
     setPendingBet(0);
   }
 
-  // Label du bouton confirmer
   function confirmLabel() {
     if (pendingBet === 0 && canCheck) return "✓ Check";
     if (pendingBet === 0 && !canCheck) return `📞 Call ${toCall}`;
@@ -86,14 +84,12 @@ export default function ActionBar({ player, currentBet, onAction, disabled = fal
   return (
     <div className="flex flex-col items-center gap-4 w-full max-w-sm">
 
-      {/* Instruction */}
       <p className="text-white/40 text-xs text-center">
         {toCall > 0
           ? `💡 Clique sur des jetons pour relancer, ou confirme pour suivre (${toCall})`
           : "💡 Clique sur des jetons pour miser, ou confirme pour checker"}
       </p>
 
-      {/* Jetons cliquables */}
       <div className="flex gap-2 flex-wrap justify-center">
         {CHIP_OPTIONS.map((chip) => (
           <ClickableChip
@@ -105,7 +101,6 @@ export default function ActionBar({ player, currentBet, onAction, disabled = fal
         ))}
       </div>
 
-      {/* Mise en cours */}
       {pendingBet > 0 && (
         <div className="flex items-center gap-3 bg-black/40 border border-yellow-500/30 rounded-2xl px-4 py-2">
           <span className="text-white/50 text-sm">Mise :</span>
@@ -119,9 +114,7 @@ export default function ActionBar({ player, currentBet, onAction, disabled = fal
         </div>
       )}
 
-      {/* Boutons principaux */}
       <div className="flex gap-3 w-full">
-        {/* Fold */}
         <button
           onClick={() => { onAction(ACTIONS.FOLD); setPendingBet(0); }}
           disabled={disabled}
@@ -131,7 +124,6 @@ export default function ActionBar({ player, currentBet, onAction, disabled = fal
           ✗ Fold
         </button>
 
-        {/* Confirmer */}
         <button
           onClick={confirmAction}
           disabled={disabled}

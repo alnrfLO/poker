@@ -40,7 +40,6 @@ export default function SuitsPage({ onBack }) {
     className="min-h-screen flex flex-col relative overflow-hidden"
     style={{ background: "radial-gradient(ellipse at top, #1a0a2e 0%, #0d1a0d 40%, #0a0a0a 100%)" }}
     >
-    {/* Cercles décoratifs */}
     <div className="absolute inset-0 pointer-events-none overflow-hidden">
     <div className="absolute -top-32 -left-32 w-96 h-96 rounded-full opacity-10"
     style={{ background: "radial-gradient(circle, #7c3aed, transparent)" }} />
@@ -50,7 +49,6 @@ export default function SuitsPage({ onBack }) {
     style={{ background: "radial-gradient(ellipse, #14532d, transparent)" }} />
     </div>
     
-    {/* Header */}
     <div className="flex items-center gap-4 px-6 py-5 z-10 border-b border-white/5"
     style={{ background: "rgba(0,0,0,0.3)" }}>
     <button
@@ -74,7 +72,6 @@ export default function SuitsPage({ onBack }) {
     </div>
     </div>
     
-    {/* Intro */}
     <div className="mx-6 mt-5 rounded-2xl p-4 border border-yellow-500/20 z-10"
     style={{ background: "linear-gradient(135deg, rgba(234,179,8,0.08), rgba(234,179,8,0.03))" }}>
     <p className="text-white/70 text-sm leading-relaxed">
@@ -85,7 +82,6 @@ export default function SuitsPage({ onBack }) {
     </p>
     </div>
     
-    {/* Familles */}
     <div className="flex flex-col gap-4 px-6 py-5 z-10">
     {SUITS.map((suit, i) => (
       <div
@@ -93,7 +89,6 @@ export default function SuitsPage({ onBack }) {
       className="rounded-2xl p-5 border flex flex-col gap-3"
       style={{ background: suit.bg, borderColor: suit.border }}
       >
-      {/* En-tête */}
       <div className="flex items-center gap-3">
       <span className="text-5xl" style={{
         color: suit.color,
@@ -107,10 +102,8 @@ export default function SuitsPage({ onBack }) {
       </div>
       </div>
       
-      {/* Description */}
       <p className="text-white/60 text-sm">{suit.desc}</p>
       
-      {/* Cartes PNG */}
       <div className="flex flex-wrap gap-1.5 mt-1">
       {RANKS.map((rank, j) => (
         <img

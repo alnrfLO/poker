@@ -3,34 +3,12 @@ import { v4 as uuidv4 } from "uuid";
 
 const router = Router();
 
-// Stockage en mémoire (sera remplacé par Firebase/DB plus tard)
 const rooms = new Map();
 
 function generateRoomId() {
     return Math.random().toString(36).substring(2, 8).toUpperCase();
 }
 
-/**
-* @swagger
-* /api/rooms:
-* get:
-* summary: Liste toutes les salles actives
-* tags: [Rooms]
-* responses:
-* 200:
-* description: Liste des salles
-* content:
-* application/json:
-* schema:
-* type: object
-* properties:
-* success:
-* type: boolean
-* rooms:
-* type: array
-* items:
-* $ref: '#/components/schemas/Room'
-*/
 router.get("/", (req, res) => {
     const allRooms = Array.from(rooms.values()).map((r) => ({
         id: r.id,
@@ -41,33 +19,6 @@ router.get("/", (req, res) => {
     res.json({ success: true, rooms: allRooms });
 });
 
-/**
-* @swagger
-* /api/rooms/{id}:
-* get:
-* summary: Récupère une salle par son ID
-* tags: [Rooms]
-* parameters:
-* - in: path
-* name: id
-* required: true
-* schema:
-* type: string
-* description: ID de la salle
-* responses:
-* 200:
-* description: Détails de la salle
-* content:
-* application/json:
-* schema:
-* $ref: '#/components/schemas/Room'
-* 404:
-* description: Salle introuvable
-* content:
-* application/json:
-* schema:
-* $ref: '#/components/schemas/Error'
-*/
 router.get("/:id", (req, res) => {
     const room = rooms.get(req.params.id.toUpperCase());
     if (!room) {
@@ -76,41 +27,6 @@ router.get("/:id", (req, res) => {
     res.json({ success: true, room });
 });
 
-/**
-* @swagger
-* /api/rooms:
-* post:
-* summary: Crée une nouvelle salle
-* tags: [Rooms]
-* requestBody:
-* required: true
-* content:
-* application/json:
-* schema:
-* type: object
-* required:
-* - playerName
-* properties:
-* playerName:
-* type: string
-* example: "raf"
-* responses:
-* 201:
-* description: Salle créée avec succès
-* content:
-* application/json:
-* schema:
-* type: object
-* properties:
-* success:
-* type: boolean
-* roomId:
-* type: string
-* playerId:
-* type: integer
-* 400:
-* description: Données manquantes
-*/
 router.post("/", (req, res) => {
     const { playerName } = req.body;
     if (!playerName?.trim()) {
@@ -146,39 +62,6 @@ router.post("/", (req, res) => {
     res.status(201).json({ success: true, roomId, playerId: 0 });
 });
 
-/**
-* @swagger
-* /api/rooms/{id}/join:
-* post:
-* summary: Rejoindre une salle existante
-* tags: [Rooms]
-* parameters:
-* - in: path
-* name: id
-* required: true
-* schema:
-* type: string
-* description: ID de la salle
-* requestBody:
-* required: true
-* content:
-* application/json:
-* schema:
-* type: object
-* required:
-* - playerName
-* properties:
-* playerName:
-* type: string
-* example: "tazk"
-* responses:
-* 200:
-* description: Joueur ajouté avec succès
-* 404:
-* description: Salle introuvable
-* 400:
-* description: Salle pleine ou erreur
-*/
 router.post("/:id/join", (req, res) => {
     const room = rooms.get(req.params.id.toUpperCase());
     if (!room) return res.status(404).json({ success: false, message: "Salle introuvable" });
@@ -204,24 +87,6 @@ router.post("/:id/join", (req, res) => {
     res.json({ success: true, playerId, roomId: room.id });
 });
 
-/**
-* @swagger
-* /api/rooms/{id}:
-* delete:
-* summary: Supprime une salle
-* tags: [Rooms]
-* parameters:
-* - in: path
-* name: id
-* required: true
-* schema:
-* type: string
-* responses:
-* 200:
-* description: Salle supprimée
-* 404:
-* description: Salle introuvable
-*/
 router.delete("/:id", (req, res) => {
     const id = req.params.id.toUpperCase();
     if (!rooms.has(id)) return res.status(404).json({ success: false, message: "Salle introuvable" });
